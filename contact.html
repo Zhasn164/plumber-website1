@@ -20,11 +20,9 @@
     .contact-method__value a { color:var(--brand-primary); }
     .contact-method__value a:hover { color:var(--brand-accent); }
     .contact-method__sub { font-size:0.85rem; color:var(--text-muted); margin-top:2px; }
-    .form-radio-group { display:flex; gap:12px; }
-    .form-radio { display:flex; align-items:center; gap:8px; cursor:pointer; }
-    .form-radio input { width:18px; height:18px; accent-color:var(--brand-primary); cursor:pointer; }
-    .form-radio span { font-size:0.95rem; font-weight:500; }
-    .emergency-alert { display:none; background:rgba(232,66,13,0.08); border:1px solid rgba(232,66,13,0.25); border-radius:var(--radius-md); padding:16px 20px; color:#c0350c; font-size:0.92rem; gap:10px; align-items:flex-start; margin-top:-8px; margin-bottom:12px; }
+    /* Tally iframe — fluid height inside the form-card */
+    .tally-frame-wrap { position:relative; width:100%; }
+    .tally-frame-wrap iframe { display:block; width:100%; border:none; }
     @media(max-width:768px){ .contact-grid { grid-template-columns:1fr; } }
   </style>
 </head>
@@ -152,113 +150,37 @@
         </div>
       </div>
 
-      <!-- Lead Capture Form -->
+      <!-- Tally Embed Form -->
       <div class="fade-in">
-        <div class="form-card">
+        <div class="form-card" style="padding:32px 28px;">
           <h3 style="margin-bottom:6px;">Request Service</h3>
-          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:28px;">Fill out the form below and we'll contact you shortly. For fastest response, <a href="tel:+14848609524" style="color:var(--brand-primary); font-weight:600;">call us directly</a>.</p>
+          <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:24px;">
+            Fill out the form and we'll be in touch shortly. For the fastest response,
+            <a href="tel:+14848609524" style="color:var(--brand-primary); font-weight:600;">call us directly</a>.
+          </p>
 
-          <!-- Success Message (hidden by default) -->
-          <div id="formSuccess" style="display:none;">
-            <div class="alert alert--success" style="margin-bottom:16px;">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              <div>
-                <strong>Request Received!</strong><br>
-                We'll call you back within 15 minutes. For immediate help, call <a href="tel:+14848609524" style="color:var(--success); font-weight:700;">(484) 860-9524</a>.
-              </div>
-            </div>
+          <!-- Tally embed — auto-resizes to form content height -->
+          <div class="tally-frame-wrap">
+            <iframe
+              data-tally-src="https://tally.so/embed/Np81Yp?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+              loading="lazy"
+              width="100%"
+              height="284"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              title="Request Plumbing Service — Integrity Residential Maintenance LLC"
+            ></iframe>
           </div>
 
-          <iframe 
-  src="https://tally.so/r/Np81Yp" 
-  width="100%" 
-  height="750" 
-  frameborder="0">
-</iframe>
-
-            <div class="grid grid--2" style="gap:16px;">
-              <div class="form-group">
-                <label class="form-label" for="name">Full Name *</label>
-                <input class="form-control" type="text" id="name" name="name" placeholder="John Smith" required autocomplete="name">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="phone">Phone Number *</label>
-                <input class="form-control" type="tel" id="phone" name="phone" placeholder="(484) 555-0100" required autocomplete="tel">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="email">Email Address</label>
-              <input class="form-control" type="email" id="email" name="email" placeholder="john@example.com" autocomplete="email">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="address">Property Address</label>
-              <input class="form-control" type="text" id="address" name="address" placeholder="123 Main St, Allentown, PA" autocomplete="street-address">
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="service">Service Needed *</label>
-              <select class="form-control" id="service" name="service" required>
-                <option value="" disabled selected>Select a service...</option>
-                <option value="emergency">🚨 Emergency Plumbing (URGENT)</option>
-                <option value="drain">Drain Cleaning / Clog</option>
-                <option value="water-heater">Water Heater Repair / Replacement</option>
-                <option value="leak">Leak Detection</option>
-                <option value="pipe">Pipe Repair / Replacement</option>
-                <option value="toilet">Toilet Repair / Replacement</option>
-                <option value="faucet">Faucet / Fixture</option>
-                <option value="sump">Sump Pump</option>
-                <option value="other">Other / Not Sure</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Is This an Emergency? *</label>
-              <div class="form-radio-group">
-                <label class="form-radio">
-                  <input type="radio" name="emergency" id="emergency" value="yes" required>
-                  <span>Yes — Need immediate help</span>
-                </label>
-                <label class="form-radio">
-                  <input type="radio" name="emergency" value="no">
-                  <span>No — Can schedule</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Emergency Alert -->
-            <div class="emergency-alert" id="emergencyAlert" role="alert">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              <div><strong>For emergencies, call us directly for the fastest response:</strong><br>
-              <a href="tel:+14848609524" style="color:var(--brand-accent); font-weight:700; font-size:1.1rem;">(484) 860-9524</a></div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="message">Describe the Problem</label>
-              <textarea class="form-control" id="message" name="message" placeholder="Tell us what's happening — the more detail, the better we can help..." rows="4"></textarea>
-            </div>
-
-            <div style="margin-bottom:16px;">
-              <input type="checkbox" id="consent" name="consent" required style="accent-color:var(--brand-primary); width:16px; height:16px; margin-right:8px;">
-              <label for="consent" style="font-size:0.85rem; color:var(--text-muted); cursor:pointer;">I agree to be contacted about my service request. *</label>
-            </div>
-
-            <button type="submit" class="btn btn-primary btn-full btn-lg">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              Submit Service Request
-            </button>
-
-            <p style="text-align:center; font-size:0.82rem; color:var(--text-muted); margin-top:12px;">
-              🔒 Your information is private and secure. We never share your data.
-            </p>
-          </form>
+          <p style="text-align:center; font-size:0.8rem; color:var(--text-muted); margin-top:16px; margin-bottom:0;">
+            🔒 Your information is private and secure. We never share your data.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 
 <!-- CTA -->
 <section class="cta-section">
@@ -332,15 +254,7 @@
 </div>
 
 <script src="script.js"></script>
-<script>
-  // Emergency radio button shows call-out alert
-  document.querySelectorAll('input[name="emergency"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-      const alert = document.getElementById('emergencyAlert');
-      alert.style.display = this.value === 'yes' ? 'flex' : 'none';
-    });
-  });
-</script>
-<iframe name="hidden_iframe" style="display:none;"></iframe>
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 </body>
 </html>
+
